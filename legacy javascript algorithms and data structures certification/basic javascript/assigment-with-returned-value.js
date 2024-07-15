@@ -15,4 +15,4 @@ function processArg(num) {
   return (num + 3) / 5;
 }
 
-processed = processArg(7)
+processed = processArg(7);
