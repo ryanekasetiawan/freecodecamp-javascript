@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piramid #</title>
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      
+      const character = "!";
+      const count = 10;
+      const rows = [];
+      let inverted = false;
+      
+      function padRow(rowNumber, rowCount) {
+        let padding = ' '.repeat(rowCount - rowNumber); // Menggunakan spasi biasa untuk padding
+        let content = character.repeat(2 * rowNumber - 1);
+        return padding + content + padding;
+      }
+      
+      for (let i = 1; i <= count; i++) {
+        if (inverted) {
+          rows.unshift(padRow(i, count));
+        } else {
+          rows.push(padRow(i, count));
+        }
+      }
+      
+      let result = "";
+      
+      for (const row of rows) {
+        result = result + "\n" + row; // Menggunakan newline untuk memisahkan baris
+      }
+      
+      console.log(result);
+      
+      // Menampilkan hasil di tampilan web
+      let outputDiv = document.createElement('div');
+      outputDiv.style.whiteSpace = 'pre'; // Menjaga spasi agar ditampilkan di tampilan web
+      outputDiv.textContent = result;
+      document.body.appendChild(outputDiv);
+    
+    </script>
+  </body>
+</html>
