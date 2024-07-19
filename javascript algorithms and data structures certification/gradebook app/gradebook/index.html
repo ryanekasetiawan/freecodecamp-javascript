@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Students</title>
+</head>
+<body>
+  <script type="text/javascript" charset="utf-8">
+    function getAverage(scores) {
+      let sum = 0;
+      for (const score of scores) {
+        sum += score;
+      }
+      return sum / scores.length;
+    }
+
+    function getGrade(score) {
+      if (score === 100) {
+        return "A++";
+      } else if (score >= 90) {
+        return "A";
+      } else if (score >= 80) {
+        return "B";
+      } else if (score >= 70) {
+        return "C";
+      } else if (score >= 60) {
+        return "D";
+      } else {
+        return "F";
+      }
+    }
+
+    function hasPassingGrade(score) {
+      return getGrade(score) !== "F";
+    }
+
+    function studentMsg(totalScores, studentScore) {
+      const classAverage = getAverage(totalScores);
+      const studentGrade = getGrade(studentScore);
+
+      if (hasPassingGrade(studentScore)) {
+        return "Class average: " + classAverage + ". Your grade: " + studentGrade + ". You passed the course.";
+      } else {
+        return "Class average: " + classAverage + ". Your grade: " + studentGrade + ". You failed the course.";
+      }
+    }
+
+    function calc() {
+      let scores = [];
+      const numberOfSubjects = parseInt(document.getElementById("pelajaran").value);
+      for (let i = 1; i <= numberOfSubjects; i++) {
+        const score = parseFloat(document.getElementById("score" + i).value);
+        scores.push(score);
+      }
+      const average = parseFloat(document.getElementById("average").value);
+      const result = studentMsg(scores, average);
+      document.getElementById("hasil").innerText = result;
+    }
+
+    function createInputs() {
+      const numberOfSubjects = parseInt(document.getElementById("pelajaran").value);
+      const resultTable = document.getElementById("resultTable");
+      resultTable.innerHTML = ""; // Clear previous inputs
+      for (let i = 1; i <= numberOfSubjects; i++) {
+        const row = document.createElement("tr");
+        const cellLabel = document.createElement("td");
+        const cellInput = document.createElement("td");
+
+        const label = document.createElement("label");
+        label.setAttribute("for", "score" + i);
+        label.innerText = "Masukan nilai " + i;
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.id = "score" + i;
+        input.name = "score" + i;
+
+        cellLabel.appendChild(label);
+        cellInput.appendChild(input);
+        row.appendChild(cellLabel);
+        row.appendChild(cellInput);
+        resultTable.appendChild(row);
+      }
+    }
+  </script>
+
+  <form name="gradeSiswa">
+    <table id="tableGrade">
+      <thead>
+        <tr id="fieldJumlahPelajaran">
+          <td><label for="pelajaran" id="labelPelajaran">Masukan jumlah pelajaran</label></td>
+          <td><input type="number" name="pelajaran" id="pelajaran" value="" oninput="createInputs()"/></td>
+        </tr>
+        <tr id="fieldAverage">
+          <td><label for="average">Masukan nilai etika dan kehadiran pelajar</label></td>
+          <td><input type="number" name="average" id="average" value="" /></td>
+        </tr>
+      </thead>
+      <tbody id="resultTable">
+      </tbody>
+      <tr>
+        <td colspan="2"><span class="hasil" id="hasil"></span></td>
+      </tr>
+    </table>
+  </form>
+  <input type="button" value="Hitung" onclick="calc()" />
+</body>
+</html>
