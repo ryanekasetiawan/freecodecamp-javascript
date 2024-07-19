@@ -4,6 +4,28 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>RPG - Dragon Repeller</title>
+    
+    <script type="text/javascript" charset="utf-8">
+      let showMessage = false;
+
+        function confirmLeave() {
+            return confirm("Apakah anda ingin meninggalkan game?");
+        }
+
+        window.addEventListener('beforeunload', function(event) {
+            if (showMessage) {
+                let message = "Apakah anda ingin meninggalkan game?";
+                event.preventDefault();
+                event.returnValue = message;
+                return message;
+            }
+        });
+
+        document.addEventListener('click', function() {
+            showMessage = true;
+        });
+    </script>
+    
   </head>
   <body>
     <div id="game">
